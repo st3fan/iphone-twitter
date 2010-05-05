@@ -1,5 +1,6 @@
+WORK IN PROGRESS - USE WITH CAUTION - INCOMPLETE APIS
 
-Example usage:
+Initial authentication:
 
 - (void) authenticate
 {
@@ -29,3 +30,10 @@ Example usage:
    NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didSucceedWithToken: %@",
       twitterAuthenticator, token);
 }
+
+Posting a tweet:
+
+TwitterTweetPoster* tweetPoster = [TwitterTweetPoster new];
+tweetPoster.consumer = _twitterConsumer;
+tweetPoster.token = token;
+[tweetPoster execute];

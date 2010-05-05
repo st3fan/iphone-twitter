@@ -1,0 +1,31 @@
+
+Example usage:
+
+- (void) authenticate
+{
+   _twitterConsumer = [[TwitterConsumer alloc] initWithKey: @"KEY-HERE"
+      secret: @"SECRET-HERE"];
+
+   _twitterAuthenticator = [TwitterAuthenticator new];
+   if (_twitterAuthenticator != nil)
+   {
+      _twitterAuthenticator.consumer = _twitterConsumer;
+      _twitterAuthenticator.username = @"USERNAME";
+      _twitterAuthenticator.password = @"PASSWORD";
+      _twitterAuthenticator.delegate = self;
+
+      [_twitterAuthenticator authenticate];
+   }
+}
+
+- (void) twitterAuthenticator: (TwitterAuthenticator*) twitterAuthenticator didFailWithError: (NSError*) error;
+{
+   NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didFailWithError: %@",
+      twitterAuthenticator, error);
+}
+
+- (void) twitterAuthenticator: (TwitterAuthenticator*) twitterAuthenticator didSucceedWithToken: (TwitterToken*) token
+{
+   NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didSucceedWithToken: %@",
+      twitterAuthenticator, token);
+}

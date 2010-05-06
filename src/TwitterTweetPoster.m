@@ -10,9 +10,7 @@
 
 #pragma mark -
 
-@synthesize
-	consumer = _consumer,
-	token = _token;
+@synthesize consumer = _consumer, token = _token, delegate = _delegate, message = _message;
 
 #pragma mark -
 
@@ -35,7 +33,7 @@
 	if (_request == nil)
 	{
 		NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-			@"Hello", @"status",
+			_message, @"status",
 			nil];
 
 		_request = [TwitterRequest new];
@@ -62,15 +60,12 @@
 
 - (void) twitterRequest: (TwitterRequest*) request didFailWithError: (NSError*) error
 {
-	NSLog(@"TwitterTweetPoster Fail");
+	[_delegate twitterTweetPoster: self didFailWithError: error];
 }
 
 - (void) twitterRequest:(TwitterRequest *)request didFinishLoadingData: (NSData*) data
 {
-	NSLog(@"TwitterTweetPoster Success");
-	
-	NSString* string = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
-	NSLog(@"Respnse = %@", string);
+	[_delegate twitterTweetPosterDidSucceed: self];
 }
 
 @end

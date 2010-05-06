@@ -17,12 +17,10 @@
  * limitations under the License.
  */
 
-#import "Base64.h"
-#import "Mac.h"
-
 #import "TwitterConsumer.h"
 #import "TwitterToken.h"
 #import "TwitterRequest.h"
+#import "TwitterUtils.h"
 
 @implementation TwitterRequest
 
@@ -141,10 +139,9 @@
 		NSLog(@"XXX Secret = %@", secret);
 		
 		// Set the signature parameter
-
-		Mac* mac = [Mac macWithAlgorithm: @"SHA1" key: [secret dataUsingEncoding: NSASCIIStringEncoding]];
-		[mac updateWithString: signatureBaseString encoding: NSASCIIStringEncoding];		
-		NSString* signatureString = [Base64 encodeData: [mac digest]];
+		
+		NSString* signatureString = [TwitterUtils encodeData:
+			[TwitterUtils generateSignatureOverString: signatureBaseString withSecret: [secret dataUsingEncoding: NSASCIIStringEncoding]]];
 
 		// Add the signature to the request parameters (just the call specific ones)
 				

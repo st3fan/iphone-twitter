@@ -128,7 +128,7 @@
 	[self _showLoginForm];
 	[self _hideStatus];
 
-	[_delegate twitterLoginViewController: self didFinishWithToken: token];
+	[_delegate twitterLoginViewController: self didSucceedWithToken: token];
 }
 
 @end

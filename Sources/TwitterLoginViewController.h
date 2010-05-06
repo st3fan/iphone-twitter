@@ -27,7 +27,7 @@
 
 @protocol TwitterLoginViewControllerDelegate
 - (void) twitterLoginViewControllerDidCancel: (TwitterLoginViewController*) twitterLoginViewController;
-- (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didFinishWithToken: (TwitterToken*) token;
+- (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didSucceedWithToken: (TwitterToken*) token;
 - (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didFailWithError: (NSError*) error;
 @end
 

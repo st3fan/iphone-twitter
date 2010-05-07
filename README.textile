@@ -14,11 +14,7 @@ The API is fully asynchronous and can be easily embedded in any project. There a
 
 h2. Screenshots
 
-<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-1.png"/>
-<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-2.png"/>
-<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-3.png"/>
-<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-4.png"/>
-<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-5.png"/>
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-1-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-2-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-3-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-4-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-5-Thumb.png"/>
 
 h2. Requirements
 

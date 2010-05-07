@@ -12,6 +12,14 @@ The library uses Twitter's XAuth authentication method.
 
 The API is fully asynchronous and can be easily embedded in any project. There are no dependencies on other libraries.
 
+h2. Screenshots
+
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-1.png"/>
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-2.png"/>
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-3.png"/>
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-4.png"/>
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-5.png"/>
+
 h2. Requirements
 
 The code has been developed and tested for iPhone OS 3.0 and higher. It does not use anything specific to 3.0 so it should also work on 2.2.1.

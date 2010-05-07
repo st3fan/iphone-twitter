@@ -1,0 +1,157 @@
+h1=. Objective-C / iPhone Twitter API
+
+p=. Version 1.0 -- Open Source (Apache License)
+
+p=. By "Stefan Arentz":mailto:stefan@arentz.ca, May 6th, 2010
+
+h2. Introduction
+
+This is a simple Objective-C API and GUI to access Twitter. The project includes ready-to-go interfaces for a login screen and a tweet composer.
+
+The library uses Twitter's XAuth authentication method.
+
+The API is fully asynchronous and can be easily embedded in any project. There are no dependencies on other libraries.
+
+h2. Requirements
+
+The code has been developed and tested for iPhone OS 3.0 and higher. It does not use anything specific to 3.0 so it should also work on 2.2.1.
+
+To use this code you will need to sign up for Twitter API access and then open a support ticket with them to request XAuth access.
+
+h2. Example Usage
+
+A full working example is included in the project. The gist of it is here:
+
+<pre><code>
+
+@interface TestViewController : UIViewController <TwitterLoginViewControllerDelegate,TweetComposeViewControllerDelegate> {
+  @private
+	TwitterConsumer* _consumer;
+	TwitterToken* _token;
+}
+
+- (IBAction) share;
+
+@end
+
+@implementation TestViewController
+
+- (void) viewDidLoad
+{
+	// Replace the key and secret with your own
+
+	_consumer = [[TwitterConsumer alloc] initWithKey: @"KEY" secret: @"SECRET"];
+   
+	// Try to get the token from the keychain. If it does not exist then we will have to show the login dialog
+	// first. In a real application you should store the token in the user's keychain!
+	
+	NSData* tokenData = [[NSUserDefaults standardUserDefaults] dataForKey: @"Token"];
+	if (tokenData != nil)
+	{
+		_token = (TwitterToken*) [[NSKeyedUnarchiver unarchiveObjectWithData: tokenData] retain];
+	}
+}
+
+- (void) openTweetComposer
+{
+	TweetComposeViewController* tweetComposeViewController = [[TweetComposeViewController new] autorelease];
+	if (tweetComposeViewController != nil)
+	{
+		tweetComposeViewController.consumer = _consumer;
+		tweetComposeViewController.token = _token;
+		tweetComposeViewController.message = @"I like Cheese";
+		tweetComposeViewController.delegate = self;
+
+		UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: tweetComposeViewController] autorelease];
+		if (navigationController != nil) {
+			[self presentModalViewController: navigationController animated: YES];
+		}
+	}
+}
+
+- (IBAction) share
+{
+	if (_token == nil)
+	{
+		TwitterLoginViewController* twitterLoginViewController = [[TwitterLoginViewController new] autorelease];
+		if (twitterLoginViewController != nil)
+		{
+			twitterLoginViewController.consumer = _consumer;
+			twitterLoginViewController.delegate = self;
+
+			UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: twitterLoginViewController] autorelease];
+			if (navigationController != nil) {
+				[self presentModalViewController: navigationController animated: YES];
+			}
+		}
+	}
+	else
+	{
+		[self openTweetComposer];
+	}
+}
+
+#pragma mark -
+
+- (void) twitterLoginViewControllerDidCancel: (TwitterLoginViewController*) twitterLoginViewController
+{
+	[twitterLoginViewController dismissModalViewControllerAnimated: YES];
+}
+
+- (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didSucceedWithToken: (TwitterToken*) token
+{
+	_token = [token retain];
+
+	// Save the token to the user defaults
+
+	[[NSUserDefaults standardUserDefaults] setObject: [NSKeyedArchiver archivedDataWithRootObject: _token] forKey: @"Token"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
+	// Open the tweet composer and dismiss the login screen
+
+	TweetComposeViewController* tweetComposeViewController = [[TweetComposeViewController new] autorelease];
+	if (tweetComposeViewController != nil)
+	{
+		tweetComposeViewController.consumer = _consumer;
+		tweetComposeViewController.token = _token;
+		tweetComposeViewController.message = @"I like Cheese";
+		tweetComposeViewController.delegate = self;
+		
+		[twitterLoginViewController.navigationController pushViewController: tweetComposeViewController animated: YES];
+	}
+}
+
+- (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didFailWithError: (NSError*) error
+{
+	NSLog(@"twitterLoginViewController: %@ didFailWithError: %@", self, error);
+}
+
+#pragma mark -
+
+- (void) tweetComposeViewControllerDidCancel: (TweetComposeViewController*) tweetComposeViewController
+{
+	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+}
+
+- (void) tweetComposeViewControllerDidSucceed: (TweetComposeViewController*) tweetComposeViewController
+{
+	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+}
+
+- (void) tweetComposeViewController: (TweetComposeViewController*) tweetComposeViewController didFailWithError: (NSError*) error
+{
+	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+}
+
+#pragma mark -
+
+- (void) dealloc
+{
+	[_consumer release];
+	[_token release];
+	[super dealloc];
+}
+
+@end
+</code></pre>
+

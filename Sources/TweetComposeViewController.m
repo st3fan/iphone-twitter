@@ -17,6 +17,8 @@
  * limitations under the License.
  */
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "TwitterConsumer.h"
 #import "TwitterToken.h"
 #import "TwitterTweetPoster.h"
@@ -25,6 +27,36 @@
 @implementation TweetComposeViewController
 
 @synthesize delegate = _delegate, token = _token, message = _message, consumer = _consumer;
+
+#pragma mark -
+
+- (void) _hideComposeForm
+{
+	_textView.hidden = YES;
+	_charactersLeftLabel.hidden = YES;
+	
+	[_textView resignFirstResponder];
+}
+
+- (void) _showComposeForm
+{
+	_textView.hidden = NO;
+	_charactersLeftLabel.hidden = NO;
+}
+
+- (void) _hideStatus
+{
+	_activityIndicatorView.hidden = YES;
+	[_activityIndicatorView stopAnimating];
+	_statusLabel.hidden = YES;
+}
+
+- (void) _showStatus
+{
+	_activityIndicatorView.hidden = NO;
+	[_activityIndicatorView startAnimating];
+	_statusLabel.hidden = NO;
+}
 
 #pragma mark -
 
@@ -50,6 +82,9 @@
 	}
 	else
 	{
+		[self _hideComposeForm];
+		[self _showStatus];
+	
 		_tweetPoster = [TwitterTweetPoster new];
 		if (_tweetPoster != nil) {
 			_tweetPoster.consumer = _consumer;
@@ -86,6 +121,11 @@
 
 - (void) viewDidLoad
 {
+	_containerView.layer.cornerRadius = 10;
+
+	[self _showComposeForm];
+	[self _hideStatus];
+
 	_textView.text = _message;
 	_textView.delegate = self;
 	

@@ -44,12 +44,15 @@
 	IBOutlet UITextField* _passwordTextField;
 	IBOutlet UILabel* _passwordLabel;
 	IBOutlet UILabel* _statusLabel;
+	IBOutlet UIActivityIndicatorView* _activityIndicatorView;
+	IBOutlet UIButton* _createAccountButton;
   @private
 	TwitterAuthenticator* _authenticator;
 }
 
 - (IBAction) cancel;
 - (IBAction) login;
+- (IBAction) createAccount;
 
 @property (nonatomic,retain) TwitterConsumer* consumer;
 @property (nonatomic,assign) id<TwitterLoginViewControllerDelegate> delegate;

@@ -32,6 +32,10 @@
 	_usernameTextField.hidden = YES;
 	_passwordLabel.hidden = YES;
 	_passwordTextField.hidden = YES;
+	_createAccountButton.hidden = YES;
+	
+	[_usernameTextField resignFirstResponder];
+	[_passwordTextField resignFirstResponder];
 }
 
 - (void) _showLoginForm
@@ -40,15 +44,20 @@
 	_usernameTextField.hidden = NO;
 	_passwordLabel.hidden = NO;
 	_passwordTextField.hidden = NO;
+	_createAccountButton.hidden = NO;
 }
 
 - (void) _hideStatus
 {
+	_activityIndicatorView.hidden = YES;
+	[_activityIndicatorView stopAnimating];
 	_statusLabel.hidden = YES;
 }
 
 - (void) _showStatus
 {
+	_activityIndicatorView.hidden = NO;
+	[_activityIndicatorView startAnimating];
 	_statusLabel.hidden = NO;
 }
 
@@ -56,11 +65,10 @@
 
 - (void) viewDidLoad
 {
-	_statusLabel.hidden = YES;
+	[self _hideStatus];
+
 	_loginButton.enabled = NO;
 
-	_containerView.layer.borderColor = [UIColor blackColor].CGColor;
-	_containerView.layer.borderWidth = 1.0;
 	_containerView.layer.cornerRadius = 15;
 	
 	self.title = @"Login";
@@ -90,6 +98,10 @@
 
       [_authenticator authenticate];
    }
+}
+
+- (IBAction) createAccount
+{
 }
 
 #pragma mark -

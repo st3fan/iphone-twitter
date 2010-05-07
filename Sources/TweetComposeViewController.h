@@ -33,8 +33,11 @@
 
 @interface TweetComposeViewController : UIViewController <UITextViewDelegate,TwitterTweetPosterDelegate> {
   @private
+	IBOutlet UIView* _containerView;
 	IBOutlet UITextView* _textView;
 	IBOutlet UILabel* _charactersLeftLabel;
+	IBOutlet UILabel* _statusLabel;
+	IBOutlet UIActivityIndicatorView* _activityIndicatorView;
   @private
 	id<TweetComposeViewControllerDelegate> _delegate;
 	TwitterConsumer* _consumer;

@@ -35,7 +35,11 @@
 		tweetComposeViewController.token = _token;
 		tweetComposeViewController.message = @"I like Cheese";
 		tweetComposeViewController.delegate = self;
-		[self presentModalViewController: tweetComposeViewController animated: YES];
+
+		UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: tweetComposeViewController] autorelease];
+		if (navigationController != nil) {
+			[self presentModalViewController: navigationController animated: YES];
+		}
 	}
 }
 
@@ -48,7 +52,11 @@
 		{
 			twitterLoginViewController.consumer = _consumer;
 			twitterLoginViewController.delegate = self;
-			[self presentModalViewController: twitterLoginViewController animated: YES];
+
+			UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: twitterLoginViewController] autorelease];
+			if (navigationController != nil) {
+				[self presentModalViewController: navigationController animated: YES];
+			}
 		}
 	}
 	else
@@ -91,11 +99,9 @@
 		tweetComposeViewController.token = _token;
 		tweetComposeViewController.message = @"I like Cheese";
 		tweetComposeViewController.delegate = self;
-		[twitterLoginViewController presentModalViewController: tweetComposeViewController animated: YES];
+		
+		[twitterLoginViewController.navigationController pushViewController: tweetComposeViewController animated: YES];
 	}
-
-	
-	[twitterLoginViewController dismissModalViewControllerAnimated: YES];
 }
 
 - (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didFailWithError: (NSError*) error

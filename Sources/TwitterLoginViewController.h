@@ -36,8 +36,8 @@
 	TwitterConsumer* _consumer;
     id<TwitterLoginViewControllerDelegate> _delegate;
   @private
-	IBOutlet UIBarButtonItem* _loginButton;
-	IBOutlet UIBarButtonItem* _cancelButton;
+	UIBarButtonItem* _loginButton;
+	UIBarButtonItem* _cancelButton;
 	IBOutlet UIView* _containerView;
 	IBOutlet UITextField* _usernameTextField;
 	IBOutlet UILabel* _usernameLabel;

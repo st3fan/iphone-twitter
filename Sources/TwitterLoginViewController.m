@@ -62,6 +62,10 @@
 	_containerView.layer.borderColor = [UIColor blackColor].CGColor;
 	_containerView.layer.borderWidth = 1.0;
 	_containerView.layer.cornerRadius = 15;
+	
+	self.title = @"Login";
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target: self action: @selector(cancel)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Login" style: UIBarButtonItemStyleDone target: self action: @selector(login)];
 }
 
 #pragma mark -
@@ -105,7 +109,7 @@
 
 - (BOOL) textField: (UITextField*) textField shouldChangeCharactersInRange: (NSRange) range replacementString: (NSString*) string
 {
-	_loginButton.enabled = ([_usernameTextField.text length] != 0 && [_passwordTextField.text length] != 0);
+	//_loginButton.enabled = ([_usernameTextField.text length] != 0 && [_passwordTextField.text length] != 0);
 	return YES;
 }
 

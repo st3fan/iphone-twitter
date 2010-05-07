@@ -97,6 +97,10 @@
 //	if (authenticationToken == nil) {
 //		[self setupLoginScreen];
 //	}
+
+	self.title = @"Compose";
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Close" style: UIBarButtonItemStylePlain target: self action: @selector(close)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleDone target: self action: @selector(send)];
 }
 
 - (void) viewWillAppear: (BOOL) animated

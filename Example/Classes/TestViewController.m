@@ -4,7 +4,7 @@
 #import "TwitterConsumer.h"
 
 #import "TwitterLoginViewController.h"
-#import "TweetComposeViewController.h"
+#import "TwitterComposeViewController.h"
 
 #import "TestViewController.h"
 
@@ -28,15 +28,15 @@
 
 - (void) openTweetComposer
 {
-	TweetComposeViewController* tweetComposeViewController = [[TweetComposeViewController new] autorelease];
-	if (tweetComposeViewController != nil)
+	TwitterComposeViewController* twitterComposeViewController = [[TwitterComposeViewController new] autorelease];
+	if (twitterComposeViewController != nil)
 	{
-		tweetComposeViewController.consumer = _consumer;
-		tweetComposeViewController.token = _token;
-		tweetComposeViewController.message = @"I like Cheese";
-		tweetComposeViewController.delegate = self;
+		twitterComposeViewController.consumer = _consumer;
+		twitterComposeViewController.token = _token;
+		twitterComposeViewController.message = @"I like Cheese";
+		twitterComposeViewController.delegate = self;
 
-		UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: tweetComposeViewController] autorelease];
+		UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: twitterComposeViewController] autorelease];
 		if (navigationController != nil) {
 			[self presentModalViewController: navigationController animated: YES];
 		}
@@ -92,15 +92,15 @@
 	
 	// Open the tweet composer and dismiss the login screen
 
-	TweetComposeViewController* tweetComposeViewController = [[TweetComposeViewController new] autorelease];
-	if (tweetComposeViewController != nil)
+	TwitterComposeViewController* twitterComposeViewController = [[TwitterComposeViewController new] autorelease];
+	if (twitterComposeViewController != nil)
 	{
-		tweetComposeViewController.consumer = _consumer;
-		tweetComposeViewController.token = _token;
-		tweetComposeViewController.message = @"I like Cheese";
-		tweetComposeViewController.delegate = self;
+		twitterComposeViewController.consumer = _consumer;
+		twitterComposeViewController.token = _token;
+		twitterComposeViewController.message = @"I like Cheese";
+		twitterComposeViewController.delegate = self;
 		
-		[twitterLoginViewController.navigationController pushViewController: tweetComposeViewController animated: YES];
+		[twitterLoginViewController.navigationController pushViewController: twitterComposeViewController animated: YES];
 	}
 }
 
@@ -111,19 +111,19 @@
 
 #pragma mark -
 
-- (void) tweetComposeViewControllerDidCancel: (TweetComposeViewController*) tweetComposeViewController
+- (void) twitterComposeViewControllerDidCancel: (TwitterComposeViewController*) twitterComposeViewController
 {
-	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+	[twitterComposeViewController dismissModalViewControllerAnimated: YES];
 }
 
-- (void) tweetComposeViewControllerDidSucceed: (TweetComposeViewController*) tweetComposeViewController
+- (void) twitterComposeViewControllerDidSucceed: (TwitterComposeViewController*) twitterComposeViewController
 {
-	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+	[twitterComposeViewController dismissModalViewControllerAnimated: YES];
 }
 
-- (void) tweetComposeViewController: (TweetComposeViewController*) tweetComposeViewController didFailWithError: (NSError*) error
+- (void) twitterComposeViewController: (TwitterComposeViewController*) twitterComposeViewController didFailWithError: (NSError*) error
 {
-	[tweetComposeViewController dismissModalViewControllerAnimated: YES];
+	[twitterComposeViewController dismissModalViewControllerAnimated: YES];
 }
 
 #pragma mark -

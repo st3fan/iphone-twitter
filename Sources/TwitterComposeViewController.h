@@ -23,15 +23,15 @@
 
 @class TwitterToken;
 @class TwitterConsumer;
-@class TweetComposeViewController;
+@class TwitterComposeViewController;
 
-@protocol TweetComposeViewControllerDelegate
-- (void) tweetComposeViewControllerDidCancel: (TweetComposeViewController*) tweetComposeViewController;
-- (void) tweetComposeViewControllerDidSucceed: (TweetComposeViewController*) tweetComposeViewController;
-- (void) tweetComposeViewController: (TweetComposeViewController*) tweetComposeViewController didFailWithError: (NSError*) error;
+@protocol TwitterComposeViewControllerDelegate
+- (void) twitterComposeViewControllerDidCancel: (TwitterComposeViewController*) twitterComposeViewController;
+- (void) twitterComposeViewControllerDidSucceed: (TwitterComposeViewController*) twitterComposeViewController;
+- (void) twitterComposeViewController: (TwitterComposeViewController*) twitterComposeViewController didFailWithError: (NSError*) error;
 @end
 
-@interface TweetComposeViewController : UIViewController <UITextViewDelegate,TwitterTweetPosterDelegate> {
+@interface TwitterComposeViewController : UIViewController <UITextViewDelegate,TwitterTweetPosterDelegate> {
   @private
 	IBOutlet UIView* _containerView;
 	IBOutlet UITextView* _textView;
@@ -39,7 +39,7 @@
 	IBOutlet UILabel* _statusLabel;
 	IBOutlet UIActivityIndicatorView* _activityIndicatorView;
   @private
-	id<TweetComposeViewControllerDelegate> _delegate;
+	id<TwitterComposeViewControllerDelegate> _delegate;
 	TwitterConsumer* _consumer;
 	TwitterToken* _token;
 	NSString* _message;
@@ -47,7 +47,7 @@
 	TwitterTweetPoster* _tweetPoster;
 }
 
-@property (nonatomic,assign) id<TweetComposeViewControllerDelegate> delegate;
+@property (nonatomic,assign) id<TwitterComposeViewControllerDelegate> delegate;
 @property (nonatomic,retain) TwitterToken* token;
 @property (nonatomic,retain) TwitterConsumer* consumer;
 @property (nonatomic,retain) NSString* message;

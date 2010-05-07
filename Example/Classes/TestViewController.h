@@ -3,12 +3,12 @@
 #import <UIKit/UIKit.h>
 
 #import "TwitterLoginViewController.h"
-#import "TweetComposeViewController.h"
+#import "TwitterComposeViewController.h"
 
 @class TwitterConsumer;
 @class TwitterToken;
 
-@interface TestViewController : UIViewController <TwitterLoginViewControllerDelegate,TweetComposeViewControllerDelegate> {
+@interface TestViewController : UIViewController <TwitterLoginViewControllerDelegate,TwitterComposeViewControllerDelegate> {
   @private
 	TwitterConsumer* _consumer;
 	TwitterToken* _token;

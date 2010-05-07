@@ -22,9 +22,9 @@
 #import "TwitterConsumer.h"
 #import "TwitterToken.h"
 #import "TwitterTweetPoster.h"
-#import "TweetComposeViewController.h"
+#import "TwitterComposeViewController.h"
 
-@implementation TweetComposeViewController
+@implementation TwitterComposeViewController
 
 @synthesize delegate = _delegate, token = _token, message = _message, consumer = _consumer;
 
@@ -63,9 +63,9 @@
 - (IBAction) close
 {
 	@try {
-		[_delegate tweetComposeViewControllerDidCancel: self];
+		[_delegate twitterComposeViewControllerDidCancel: self];
 	} @catch (NSException* exception) {
-		NSLog(@"TweetComposeViewController caught an unexpected exception while calling the delegate: %@", exception);
+		NSLog(@"TwitterComposeViewController caught an unexpected exception while calling the delegate: %@", exception);
 	}
 }
 
@@ -93,12 +93,6 @@
 			_tweetPoster.message = _textView.text;
 			[_tweetPoster execute];
 		}
-
-//		@try {
-//			[_delegate tweetComposeViewController: self didFinishWithResult: 1 error: nil];
-//		} @catch (NSException* exception) {
-//			NSLog(@"TweetComposeViewController caught an unexpected exception while calling the delegate: %@", exception);
-//		}
 	}
 }
 
@@ -131,13 +125,6 @@
 	
 	[self updateCharactersLeftLabel];
 	
-//	// Check if the user was previously authenticated
-//	
-//	NSString* authenticationToken = [_tweetComposeDelegate authenticationTokenForTweetComposeViewController: self];
-//	if (authenticationToken == nil) {
-//		[self setupLoginScreen];
-//	}
-
 	self.title = @"Compose";
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Close" style: UIBarButtonItemStylePlain target: self action: @selector(close)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleDone target: self action: @selector(send)];
@@ -159,12 +146,12 @@
 
 - (void) twitterTweetPosterDidSucceed: (TwitterTweetPoster*) twitterTweetPoster
 {
-	[_delegate tweetComposeViewControllerDidSucceed: self];
+	[_delegate twitterComposeViewControllerDidSucceed: self];
 }
 
 - (void) twitterTweetPoster: (TwitterTweetPoster*) twitterTweetPoster didFailWithError: (NSError*) error
 {
-	[_delegate tweetComposeViewController: self didFailWithError: error];
+	[_delegate twitterComposeViewController: self didFailWithError: error];
 }
 
 @end

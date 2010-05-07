@@ -1,6 +1,6 @@
 h1=. Objective-C / iPhone Twitter API
 
-p=. Version 1.0 -- Open Source (Apache License)
+p=. Version 0.1 -- Open Source (Apache License)
 
 p=. By "Stefan Arentz":mailto:stefan@arentz.ca, May 6th, 2010
 
@@ -8,9 +8,13 @@ h2. Introduction
 
 This is a simple Objective-C API and GUI to access Twitter. The project includes ready-to-go interfaces for a login screen and a tweet composer.
 
-The library uses Twitter's XAuth authentication method.
+The library uses Twitter's XAuth authentication method. This is a new authentication method that does not need a web view to let the user login. Using XAuth you can ask the user for her username and password using a native GUI.
 
 The API is fully asynchronous and can be easily embedded in any project. There are no dependencies on other libraries.
+
+h2. Screenshots
+
+<img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-1-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-2-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-3-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-4-Thumb.png"/> <img src="http://stefan.arentz.ca/stuff/TwitterGui-2010.05.07-5-Thumb.png"/>
 
 h2. Requirements
 

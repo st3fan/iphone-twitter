@@ -8,7 +8,7 @@
 @class TwitterConsumer;
 @class TwitterToken;
 
-@protocol TwitterTweetPosterDelegate
+@protocol TwitterTweetPosterDelegate <NSObject>
 - (void) twitterTweetPosterDidSucceed: (TwitterTweetPoster*) twitterTweetPoster;
 - (void) twitterTweetPoster: (TwitterTweetPoster*) twitterTweetPoster didFailWithError: (NSError*) error;
 @end
@@ -25,7 +25,7 @@
 
 @property (nonatomic,retain) TwitterConsumer* consumer;
 @property (nonatomic,retain) TwitterToken* token;
-@property (nonatomic,assign) id<TwitterTweetPosterDelegate> delegate;
+@property (nonatomic,retain) id<TwitterTweetPosterDelegate> delegate;
 @property (nonatomic,retain) NSString* message;
 
 - (void) execute;

@@ -74,6 +74,10 @@
 	self.title = @"Login";
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target: self action: @selector(cancel)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Login" style: UIBarButtonItemStyleDone target: self action: @selector(login)];
+	self.navigationItem.rightBarButtonItem.enabled = NO;
+	
+	[_usernameTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
+	[_passwordTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
 }
 
 #pragma mark -
@@ -87,17 +91,19 @@
 {
 	[self _hideLoginForm];
 	[self _showStatus];
+	
+	self.navigationItem.rightBarButtonItem.enabled = NO;
 
-   _authenticator = [TwitterAuthenticator new];
-   if (_authenticator != nil)
-   {
-      _authenticator.consumer = _consumer;
-      _authenticator.username = _usernameTextField.text;
-      _authenticator.password = _passwordTextField.text;
-      _authenticator.delegate = self;
+	if (_authenticator == nil) {
+		_authenticator = [TwitterAuthenticator new];
+	}
 
-      [_authenticator authenticate];
-   }
+  _authenticator.consumer = _consumer;
+  _authenticator.username = _usernameTextField.text;
+  _authenticator.password = _passwordTextField.text;
+  _authenticator.delegate = self;
+
+  [_authenticator authenticate];
 }
 
 - (IBAction) createAccount
@@ -119,10 +125,10 @@
 	return YES;
 }
 
-- (BOOL) textField: (UITextField*) textField shouldChangeCharactersInRange: (NSRange) range replacementString: (NSString*) string
+- (void) updateLoginButton
 {
-	//_loginButton.enabled = ([_usernameTextField.text length] != 0 && [_passwordTextField.text length] != 0);
-	return YES;
+	NSLog(@"Yay");
+	self.navigationItem.rightBarButtonItem.enabled = ([_usernameTextField.text length] != 0 && [_passwordTextField.text length] != 0);
 }
 
 #pragma mark -
@@ -131,6 +137,7 @@
 {
 	NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didFailWithError: %@", twitterAuthenticator, error);
 
+	self.navigationItem.rightBarButtonItem.enabled = YES;
 	[self _showLoginForm];
 	[self _hideStatus];
 
@@ -141,10 +148,19 @@
 {
 	NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didSucceedWithToken: %@", twitterAuthenticator, token);
 
+	self.navigationItem.rightBarButtonItem.enabled = YES;
 	[self _showLoginForm];
 	[self _hideStatus];
 
 	[_delegate twitterLoginViewController: self didSucceedWithToken: token];
+}
+
+#pragma mark -
+
+- (void) dealloc
+{
+	[_authenticator release];
+	[super dealloc];
 }
 
 @end

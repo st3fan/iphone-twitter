@@ -37,7 +37,6 @@
     id<TwitterLoginViewControllerDelegate> _delegate;
   @private
 	UIBarButtonItem* _loginButton;
-	UIBarButtonItem* _cancelButton;
 	IBOutlet UIView* _containerView;
 	IBOutlet UITextField* _usernameTextField;
 	IBOutlet UILabel* _usernameLabel;

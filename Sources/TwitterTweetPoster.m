@@ -23,6 +23,8 @@
 
 - (void) dealloc
 {
+	[_request release];
+	[_delegate release];
 	[super dealloc];
 }
 
@@ -32,20 +34,16 @@
 {
 	if (_request == nil)
 	{
-		NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-			_message, @"status",
-			nil];
-
 		_request = [TwitterRequest new];
-
-		_request.url = [NSURL URLWithString: @"http://api.twitter.com/1/statuses/update.xml"];
-		_request.twitterConsumer = _consumer;
-		_request.token = _token;
-		_request.method = @"POST";
-		_request.parameters = parameters;
-		_request.delegate = self;
-		
-		[_request execute];
+		if (_request != nil) {
+			_request.url = [NSURL URLWithString: @"http://api.twitter.com/1/statuses/update.xml"];
+			_request.twitterConsumer = _consumer;
+			_request.token = _token;
+			_request.method = @"POST";
+			_request.parameters = [NSDictionary dictionaryWithObjectsAndKeys: _message, @"status", nil];
+			_request.delegate = self;		
+			[_request execute];
+		}
 	}
 }
 
@@ -53,6 +51,8 @@
 {
 	if (_request != nil) {
 		[_request cancel];
+		[_request release];
+		_request = nil;
 	}
 }
 

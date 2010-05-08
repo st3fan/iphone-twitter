@@ -43,6 +43,7 @@
 
 - (void) dealloc
 {
+	[_twitterRequest release];
 	[_consumer release];
 	[_username release];
 	[_password release];

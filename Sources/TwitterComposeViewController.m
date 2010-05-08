@@ -154,4 +154,12 @@
 	[_delegate twitterComposeViewController: self didFailWithError: error];
 }
 
+#pragma mark -
+
+- (void) dealloc
+{
+	[_tweetPoster release];
+	[super dealloc];
+}
+
 @end

@@ -74,7 +74,7 @@
 	if ([_textView.text length] > 140)
 	{
 		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle: @"The tweet is too long" message: @"Twitter messages can only be up to 140 characters long." delegate: nil
-			cancelButtonTitle: @"OK" otherButtonTitles: nil];
+			cancelButtonTitle: NSLocalizedStringFromTable(@"OK", @"Twitter", @"") otherButtonTitles: nil];
 		if (alertView != nil) {
 			[alertView show];
 			[alertView release];
@@ -125,9 +125,14 @@
 	
 	[self updateCharactersLeftLabel];
 	
-	self.title = @"Compose";
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Close" style: UIBarButtonItemStylePlain target: self action: @selector(close)];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Send" style: UIBarButtonItemStyleDone target: self action: @selector(send)];
+	self.title = NSLocalizedStringFromTable(@"NewMessage", @"Twitter", @"");
+	
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedStringFromTable(@"Cancel", @"Twitter", @"")
+		style: UIBarButtonItemStylePlain target: self action: @selector(close)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedStringFromTable(@"Send", @"Twitter", @"")
+		style: UIBarButtonItemStyleDone target: self action: @selector(send)];
+		
+	_statusLabel.text = NSLocalizedStringFromTable(@"UpdatingStatus", @"Twitter", @"");
 }
 
 - (void) viewWillAppear: (BOOL) animated

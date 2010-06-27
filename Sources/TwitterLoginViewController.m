@@ -71,13 +71,24 @@
 
 	_containerView.layer.cornerRadius = 15;
 	
-	self.title = @"Login";
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStylePlain target: self action: @selector(cancel)];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: @"Login" style: UIBarButtonItemStyleDone target: self action: @selector(login)];
+	self.title = NSLocalizedStringFromTable(@"Login", @"Twitter", @"");
+	
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedStringFromTable(@"Cancel", @"Twitter", @"")
+		style: UIBarButtonItemStylePlain target: self action: @selector(cancel)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedStringFromTable(@"Login", @"Twitter", @"")
+		style: UIBarButtonItemStyleDone target: self action: @selector(login)];
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	
 	[_usernameTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
+	_usernameTextField.placeholder = NSLocalizedStringFromTable(@"Required", @"Twitter", @"");
+	
 	[_passwordTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
+	_passwordTextField.placeholder = NSLocalizedStringFromTable(@"Required", @"Twitter", @"");
+	
+	[_createAccountButton setTitle: NSLocalizedStringFromTable(@"CreateATwitterAccount", @"Twitter", @"") forState: UIControlStateNormal];
+	_usernameLabel.text = NSLocalizedStringFromTable(@"Username", @"Twitter", @"");
+	_passwordLabel.text = NSLocalizedStringFromTable(@"Password", @"Twitter", @"");
+	_statusLabel.text = NSLocalizedStringFromTable(@"SigningIn", @"Twitter", @"");
 }
 
 #pragma mark -

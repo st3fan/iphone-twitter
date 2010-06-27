@@ -15,6 +15,7 @@
 		2899E5220DE3E06400AC0155 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* TestViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* TestViewController.m */; };
+		F83FEDFE11D7FC7200C6411C /* Twitter.strings in Resources */ = {isa = PBXBuildFile; fileRef = F83FEDFC11D7FC7200C6411C /* Twitter.strings */; };
 		F8733C491193C50700680E83 /* TwitterClouds.png in Resources */ = {isa = PBXBuildFile; fileRef = F8733C481193C50700680E83 /* TwitterClouds.png */; };
 		F8BC11F7119270670065FCB5 /* TwitterComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BC11E6119270670065FCB5 /* TwitterComposeViewController.m */; };
 		F8BC11F8119270670065FCB5 /* TwitterComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8BC11E7119270670065FCB5 /* TwitterComposeViewController.xib */; };
@@ -42,6 +43,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Test_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		F83FEDFD11D7FC7200C6411C /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = ../Sources/English.lproj/Twitter.strings; sourceTree = SOURCE_ROOT; };
+		F83FEDFF11D7FC7C00C6411C /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = ../Sources/French.lproj/Twitter.strings; sourceTree = SOURCE_ROOT; };
 		F8733C481193C50700680E83 /* TwitterClouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterClouds.png; path = ../Sources/TwitterClouds.png; sourceTree = SOURCE_ROOT; };
 		F8BC11E5119270670065FCB5 /* TwitterComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TwitterComposeViewController.h; path = ../Sources/TwitterComposeViewController.h; sourceTree = SOURCE_ROOT; };
 		F8BC11E6119270670065FCB5 /* TwitterComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TwitterComposeViewController.m; path = ../Sources/TwitterComposeViewController.m; sourceTree = SOURCE_ROOT; };
@@ -122,6 +125,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F83FEDFC11D7FC7200C6411C /* Twitter.strings */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Test-Info.plist */,
 			);
@@ -211,6 +215,7 @@
 				F8BC11F8119270670065FCB5 /* TwitterComposeViewController.xib in Resources */,
 				F8BC11FC119270670065FCB5 /* TwitterLoginViewController.xib in Resources */,
 				F8733C491193C50700680E83 /* TwitterClouds.png in Resources */,
+				F83FEDFE11D7FC7200C6411C /* Twitter.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +241,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F83FEDFC11D7FC7200C6411C /* Twitter.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F83FEDFD11D7FC7200C6411C /* English */,
+				F83FEDFF11D7FC7C00C6411C /* French */,
+			);
+			name = Twitter.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {

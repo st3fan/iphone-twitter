@@ -24,23 +24,33 @@
 #import "TwitterTweetPoster.h"
 #import "TwitterComposeViewController.h"
 
+#if defined(TWITTER_USE_URLSHORTENER)
+#import "RegexKitLite.h"
+#endif
+
 @implementation TwitterComposeViewController
 
 @synthesize delegate = _delegate, token = _token, message = _message, consumer = _consumer;
+
+#if defined(TWITTER_USE_URLSHORTENER)
+@synthesize linkShortenerEnabled = _linkShortenerEnabled, linkShortenerCredentials = _linkShortenerCredentials;
+#endif
 
 #pragma mark -
 
 - (void) _hideComposeForm
 {
 	_textView.hidden = YES;
-	_charactersLeftLabel.hidden = YES;
-	
 	[_textView resignFirstResponder];
+
+	_charactersLeftLabel.hidden = YES;	
 }
 
 - (void) _showComposeForm
 {
 	_textView.hidden = NO;
+	[_textView becomeFirstResponder];
+
 	_charactersLeftLabel.hidden = NO;
 }
 
@@ -51,11 +61,93 @@
 	_statusLabel.hidden = YES;
 }
 
-- (void) _showStatus
+- (void) _showStatus: (NSString*) status
 {
+	_statusLabel.text = status;
+
 	_activityIndicatorView.hidden = NO;
 	[_activityIndicatorView startAnimating];
 	_statusLabel.hidden = NO;
+}
+
+#pragma mark -
+
+- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
+{
+	// Replace the first URL in the message. This is terrible code that needs to be replaced with a proper regular expression.
+
+	NSMutableString* message = [NSMutableString string];
+	
+	for (NSString* word in [_message componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]) {
+		if ([word hasPrefix: @"http://"] || [word hasPrefix: @"https://"]) {
+			[message appendString: @" "];
+			[message appendString: [shortenedURL absoluteString]];
+		} else {
+			[message appendString: @" "];
+			[message appendString: word];
+		}
+	}
+	
+	_textView.text = message;
+	[self updateCharactersLeftLabel];
+
+	[self _showComposeForm];
+	[self _hideStatus];
+}
+
+- (void) shortener: (URLShortener*) shortener didFailWithStatusCode: (int) statusCode
+{
+	[self _showComposeForm];
+	[self _hideStatus];
+}
+
+- (void) shortener: (URLShortener*) shortener didFailWithError: (NSError*) error
+{
+	[self _showComposeForm];
+	[self _hideStatus];
+}
+
+- (void) _shortenLinks
+{
+	NSURL* url = nil;
+
+	for (NSString* word in [_message componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]) {
+		if ([word hasPrefix: @"http://"] || [word hasPrefix: @"https://"]) {
+			url = [NSURL URLWithString: word];
+			break;
+		}
+	}
+	
+	if (url != nil)
+	{
+		NSLog(@"Shortening link %@", [url absoluteString]);
+		
+		URLShortener* shortener = [[URLShortener new] autorelease];
+		if (shortener != nil)
+		{
+			shortener.delegate = self;
+			shortener.url = url;
+			shortener.credentials = _linkShortenerCredentials;
+			[shortener execute];
+		}
+	}
+}
+
+- (BOOL) _messageContainsLinks
+{
+	BOOL messageContainsLinks = NO;
+	
+	if (_message && [_message length] != 0)
+	{
+		for (NSString* word in [_message componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]) {
+			if ([word hasPrefix: @"http://"] || [word hasPrefix: @"https://"]) {
+				messageContainsLinks = YES;
+				break;
+			}
+		}
+	}
+	
+	return messageContainsLinks;
 }
 
 #pragma mark -
@@ -83,7 +175,7 @@
 	else
 	{
 		[self _hideComposeForm];
-		[self _showStatus];
+		[self _showStatus: NSLocalizedStringFromTable(@"UpdatingStatus", @"Twitter", @"")];
 	
 		_tweetPoster = [TwitterTweetPoster new];
 		if (_tweetPoster != nil) {
@@ -117,9 +209,6 @@
 {
 	_containerView.layer.cornerRadius = 10;
 
-	[self _showComposeForm];
-	[self _hideStatus];
-
 	_textView.text = _message;
 	_textView.delegate = self;
 	
@@ -131,13 +220,23 @@
 		style: UIBarButtonItemStylePlain target: self action: @selector(close)];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedStringFromTable(@"Send", @"Twitter", @"")
 		style: UIBarButtonItemStyleDone target: self action: @selector(send)];
-		
-	_statusLabel.text = NSLocalizedStringFromTable(@"UpdatingStatus", @"Twitter", @"");
 }
 
 - (void) viewWillAppear: (BOOL) animated
 {
-	[_textView becomeFirstResponder];
+#if defined(TWITTER_USE_URLSHORTENER)
+	if (_linkShortenerEnabled == YES && [self _messageContainsLinks]) {
+		[self _hideComposeForm];
+		[self _showStatus: NSLocalizedStringFromTable(@"ShorteningLinks", @"Twitter", @"")];
+		[self _shortenLinks];
+	} else {
+		[self _showComposeForm];
+		[self _hideStatus];
+	}
+#else
+	[self _showComposeForm];
+	[self _hideStatus];
+#endif
 }
 
 #pragma mark -

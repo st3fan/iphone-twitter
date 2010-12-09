@@ -115,16 +115,19 @@
 			[normalizedRequestParameters appendString: @"="];
 			[normalizedRequestParameters appendString: [self _formEncodeString: [parameters objectForKey: key]]];
 		}
-		
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX normalizedRequestParameters = %@", normalizedRequestParameters);
-		
+#endif
+
 		// Create the signature base string
 		
 		NSString* signatureBaseString = [NSString stringWithFormat: @"%@&%@&%@", _method,
 			[self _formEncodeString: [NSString stringWithFormat: @"%@://%@%@", [_url scheme], [_url host], [_url path]]],
 				[self _formEncodeString: normalizedRequestParameters]];
 
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX signatureBaseString = %@", signatureBaseString);
+#endif
 
 		// Create the secret
 		
@@ -136,8 +139,10 @@
 			secret = [NSString stringWithFormat:@"%@&", [self _formEncodeString: _twitterConsumer.secret]];
 		}
 		
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX Secret = %@", secret);
-		
+#endif
+
 		// Set the signature parameter
 		
 		NSString* signatureString = [TwitterUtils encodeData:
@@ -157,9 +162,11 @@
 			[normalizedRequestParameters appendString: @"="];
 			[normalizedRequestParameters appendString: [self _formEncodeString: [_parameters objectForKey: key]]];
 		}
-		
+
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX POST Data = %@", normalizedRequestParameters);
-		
+#endif
+
 		NSData* requestData = [normalizedRequestParameters dataUsingEncoding: NSUTF8StringEncoding];
 		
 		// Setup the Authorization header
@@ -191,9 +198,11 @@
 			[authorization appendString: [self _formEncodeString: [authorizationParameters objectForKey: key]]];
 			[authorization appendString: @"\""];
 		}
-		
+
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Authorization: %@", authorization);
-		
+#endif
+
 		// Setup the request and connection
 
 		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL: _url
@@ -244,9 +253,11 @@
 - (void) connectionDidFinishLoading: (NSURLConnection*) connection
 {
 	if (_statusCode != 200) {
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Request failed with status code %d", _statusCode);
 		NSString* response = [[[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding] autorelease];
 		NSLog(@"Response = %@", response);
+#endif
 		// TODO: Real error handling
 		[_delegate twitterRequest: self didFailWithError: nil];
 	} else {

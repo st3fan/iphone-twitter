@@ -120,8 +120,10 @@
 	
 	if (url != nil)
 	{
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Shortening link %@", [url absoluteString]);
-		
+#endif
+
 		URLShortener* shortener = [[URLShortener new] autorelease];
 		if (shortener != nil)
 		{
@@ -156,8 +158,10 @@
 {
 	@try {
 		[_delegate twitterComposeViewControllerDidCancel: self];
+#ifndef NS_BLOCK_ASSERTIONS
 	} @catch (NSException* exception) {
 		NSLog(@"TwitterComposeViewController caught an unexpected exception while calling the delegate: %@", exception);
+#endif
 	}
 }
 

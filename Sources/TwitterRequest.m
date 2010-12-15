@@ -46,6 +46,12 @@
 
 - (void) dealloc
 {
+    [_twitterConsumer release];
+    [_parameters release];
+    [_token release];
+    [_method release];
+    [_url release];
+    [_realm release];
 	[super dealloc];
 }
 

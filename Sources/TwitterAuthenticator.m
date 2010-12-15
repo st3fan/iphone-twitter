@@ -70,18 +70,18 @@
 {
 	if (_twitterRequest == nil)
 	{
-		NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
+		NSDictionary* parameters = [[NSDictionary dictionaryWithObjectsAndKeys:
 			_username, @"x_auth_username",
 			_password, @"x_auth_password",
 			@"client_auth", @"x_auth_mode",
-			nil];
+			nil]retain];
 
 		_twitterRequest = [TwitterRequest new];
 
 		_twitterRequest.url = [NSURL URLWithString: @"https://api.twitter.com/oauth/access_token"];
 		_twitterRequest.twitterConsumer = _consumer;
 		_twitterRequest.method = @"POST";
-		_twitterRequest.parameters = parameters;
+		_twitterRequest.parameters = [parameters autorelease];
 		_twitterRequest.delegate = self;
 		
 		[_twitterRequest execute];

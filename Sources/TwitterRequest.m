@@ -264,8 +264,8 @@
 		NSString* response = [[[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding] autorelease];
 		NSLog(@"Response = %@", response);
 #endif
-		// TODO: Real error handling
-		[_delegate twitterRequest: self didFailWithError: nil];
+		// TODO: Add error message to userInfo?
+		[_delegate twitterRequest: self didFailWithError: [NSError errorWithDomain:@"TwitterRequestError" code:_statusCode userInfo:nil]];
 	} else {
 		[_delegate twitterRequest: self didFinishLoadingData: _data];
 	}

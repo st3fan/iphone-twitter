@@ -46,6 +46,12 @@
 
 - (void) dealloc
 {
+	self.twitterConsumer = nil;
+	self.parameters = nil;
+	self.token = nil;
+	self.method = nil;
+	self.url = nil;
+	self.realm = nil;
 	[super dealloc];
 }
 
@@ -80,6 +86,7 @@
 
 - (void) execute
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	if (_connection == nil)
 	{
 		_data = [NSMutableData new];
@@ -232,6 +239,7 @@
 
 - (void) connection: (NSURLConnection*) connection didFailWithError: (NSError*) error
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[_delegate twitterRequest: self didFailWithError: error];
 
 	[_connection release];
@@ -243,6 +251,7 @@
 
 - (void) connectionDidFinishLoading: (NSURLConnection*) connection
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	if (_statusCode != 200) {
 		NSLog(@"Request failed with status code %d", _statusCode);
 		NSString* response = [[[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding] autorelease];

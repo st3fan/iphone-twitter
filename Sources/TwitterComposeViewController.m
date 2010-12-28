@@ -72,7 +72,7 @@
 
 #pragma mark -
 
-- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
+/*- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
 {
 	// Replace the first URL in the message. This is terrible code that needs to be replaced with a proper regular expression.
 
@@ -148,9 +148,14 @@
 	}
 	
 	return messageContainsLinks;
-}
+}*/
 
 #pragma mark -
+
+- (void) updateSendButton
+{
+	self.navigationItem.rightBarButtonItem.enabled = ([_textView.text length] != 0 && [_textView.text length] <= 140);
+}
 
 - (IBAction) close
 {
@@ -192,6 +197,7 @@
 
 - (void) updateCharactersLeftLabel
 {
+	[self updateSendButton];
 	NSInteger count = 140 - [_textView.text length];
 
 	if (count < 0) {
@@ -211,6 +217,13 @@
 
 	_textView.text = _message;
 	_textView.delegate = self;
+	
+	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
+		_textView.font = [UIFont fontWithName:@"Helvetica" size:19.0];	
+	} else {
+		_textView.font = [UIFont fontWithName:@"Helvetica" size:22.0];	
+ 	}
+
 	
 	[self updateCharactersLeftLabel];
 	

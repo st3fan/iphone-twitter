@@ -218,13 +218,6 @@
 	_textView.text = _message;
 	_textView.delegate = self;
 	
-	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-		_textView.font = [UIFont fontWithName:@"Helvetica" size:19.0];	
-	} else {
-		_textView.font = [UIFont fontWithName:@"Helvetica" size:22.0];	
- 	}
-
-	
 	[self updateCharactersLeftLabel];
 	
 	self.title = NSLocalizedStringFromTable(@"NewMessage", @"Twitter", @"");

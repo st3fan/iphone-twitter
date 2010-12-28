@@ -28,7 +28,12 @@
 
 - (void) openTweetComposer
 {
-	TwitterComposeViewController* twitterComposeViewController = [[TwitterComposeViewController new] autorelease];
+	NSString *nibname = @"TwitterComposeViewController";
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		nibname = @"TwitterComposeViewController-iPad";
+	}
+	TwitterComposeViewController *twitterComposeViewController = [[[TwitterComposeViewController alloc] initWithNibName:nibname bundle:[NSBundle bundleWithIdentifier:@"en"]] autorelease];	
+	
 	if (twitterComposeViewController != nil)
 	{
 		twitterComposeViewController.consumer = _consumer;
@@ -38,6 +43,7 @@
 
 		UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: twitterComposeViewController] autorelease];
 		if (navigationController != nil) {
+			navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
 			[self presentModalViewController: navigationController animated: YES];
 		}
 	}
@@ -47,7 +53,11 @@
 {
 	if (_token == nil)
 	{
-		TwitterLoginViewController* twitterLoginViewController = [[TwitterLoginViewController new] autorelease];
+		NSString *nibname = @"TwitterLoginViewController";
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			nibname = @"TwitterLoginViewController-iPad";
+		}
+		TwitterLoginViewController *twitterLoginViewController = [[[TwitterLoginViewController alloc] initWithNibName:nibname bundle:[NSBundle bundleWithIdentifier:@"en"]] autorelease];	
 		if (twitterLoginViewController != nil)
 		{
 			twitterLoginViewController.consumer = _consumer;
@@ -55,6 +65,7 @@
 
 			UINavigationController* navigationController = [[[UINavigationController alloc] initWithRootViewController: twitterLoginViewController] autorelease];
 			if (navigationController != nil) {
+				navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
 				[self presentModalViewController: navigationController animated: YES];
 			}
 		}
@@ -92,7 +103,12 @@
 	
 	// Open the tweet composer and dismiss the login screen
 
-	TwitterComposeViewController* twitterComposeViewController = [[TwitterComposeViewController new] autorelease];
+	NSString *nibname = @"TwitterComposeViewController";
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		nibname = @"TwitterComposeViewController-iPad";
+	}
+	TwitterComposeViewController *twitterComposeViewController = [[[TwitterComposeViewController alloc] initWithNibName:nibname bundle:[NSBundle bundleWithIdentifier:@"en"]] autorelease];	
+	
 	if (twitterComposeViewController != nil)
 	{
 		twitterComposeViewController.consumer = _consumer;

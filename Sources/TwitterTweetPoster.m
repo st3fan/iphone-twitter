@@ -24,7 +24,6 @@
 - (void) dealloc
 {
 	[_request release];
-	[_delegate release];
 	[super dealloc];
 }
 

@@ -25,7 +25,7 @@
 
 @property (nonatomic,retain) TwitterConsumer* consumer;
 @property (nonatomic,retain) TwitterToken* token;
-@property (nonatomic,retain) id<TwitterTweetPosterDelegate> delegate;
+@property (nonatomic,assign) id<TwitterTweetPosterDelegate> delegate;
 @property (nonatomic,retain) NSString* message;
 
 - (void) execute;

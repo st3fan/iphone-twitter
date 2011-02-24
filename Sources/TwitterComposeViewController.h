@@ -21,6 +21,11 @@
 
 #import "TwitterTweetPoster.h"
 
+#if defined(TWITTER_USE_URLSHORTENER)
+#import "URLShortenerCredentials.h"
+#import "URLShortener.h"
+#endif
+
 @class TwitterToken;
 @class TwitterConsumer;
 @class TwitterComposeViewController;
@@ -44,6 +49,11 @@
 	TwitterToken* _token;
 	NSString* _message;
   @private
+#if defined(TWITTER_USE_URLSHORTENER)
+	BOOL _linkShortenerEnabled;
+	URLShortenerCredentials* _linkShortenerCredentials;
+#endif
+  @private
 	TwitterTweetPoster* _tweetPoster;
 }
 
@@ -51,6 +61,11 @@
 @property (nonatomic,retain) TwitterToken* token;
 @property (nonatomic,retain) TwitterConsumer* consumer;
 @property (nonatomic,retain) NSString* message;
+
+#if defined(TWITTER_USE_URLSHORTENER)
+@property (nonatomic,assign) BOOL linkShortenerEnabled;
+@property (nonatomic,retain) URLShortenerCredentials* linkShortenerCredentials;
+#endif
 
 - (IBAction) close;
 - (IBAction) send;

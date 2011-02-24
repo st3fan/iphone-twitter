@@ -70,6 +70,8 @@
 	_statusLabel.hidden = NO;
 }
 
+#if defined(TWITTER_USE_URLSHORTENER)
+
 #pragma mark -
 
 - (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
@@ -149,6 +151,8 @@
 	
 	return messageContainsLinks;
 }
+
+#endif
 
 #pragma mark -
 

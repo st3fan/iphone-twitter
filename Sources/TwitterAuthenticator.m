@@ -54,13 +54,13 @@
 
 - (NSString*) _formEncodeString: (NSString*) string
 {
-   NSString* encoded = (NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+   NSString* encoded = (NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
    return [encoded autorelease];
 }
 
 - (NSString*) _formDecodeString: (NSString*) string
 {
-	NSString* decoded = (NSString*) CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (CFStringRef) string, NULL);
+	NSString* decoded = (NSString*) CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL);
 	return [decoded autorelease];
 }
 

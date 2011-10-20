@@ -41,27 +41,19 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[_twitterRequest release];
-	[_consumer release];
-	[_username release];
-	[_password release];
-	[super dealloc];
-}
 
 #pragma mark -
 
 - (NSString*) _formEncodeString: (NSString*) string
 {
-   NSString* encoded = (NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
-   return [encoded autorelease];
+   NSString* encoded = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+   return encoded;
 }
 
 - (NSString*) _formDecodeString: (NSString*) string
 {
-	NSString* decoded = (NSString*) CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL);
-	return [decoded autorelease];
+	NSString* decoded = (__bridge_transfer NSString*) CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef) string, NULL);
+	return decoded;
 }
 
 #pragma mark -
@@ -70,18 +62,18 @@
 {
 	if (_twitterRequest == nil)
 	{
-		NSDictionary* parameters = [[NSDictionary dictionaryWithObjectsAndKeys:
+		NSDictionary* parameters = [NSDictionary dictionaryWithObjectsAndKeys:
 			_username, @"x_auth_username",
 			_password, @"x_auth_password",
 			@"client_auth", @"x_auth_mode",
-			nil]retain];
+			nil];
 
 		_twitterRequest = [TwitterRequest new];
 
 		_twitterRequest.url = [NSURL URLWithString: @"https://api.twitter.com/oauth/access_token"];
 		_twitterRequest.twitterConsumer = _consumer;
 		_twitterRequest.method = @"POST";
-		_twitterRequest.parameters = [parameters autorelease];
+		_twitterRequest.parameters = parameters;
 		_twitterRequest.delegate = self;
 		
 		[_twitterRequest execute];
@@ -91,7 +83,6 @@
 - (void) cancel
 {
 	if (_twitterRequest != nil) {
-		[_twitterRequest release];
 		_twitterRequest = nil;
 	}
 }
@@ -102,7 +93,6 @@
 {
 	[_delegate twitterAuthenticator: self didFailWithError: error];
 	
-	[_twitterRequest release];
 	_twitterRequest = nil;
 }
 
@@ -110,9 +100,9 @@
 {
 	// Get the response data as a string
 	
-	NSString* response = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
+	NSString* response = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
 	if (response == nil) {
-		response = [[[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding] autorelease];
+		response = [[NSString alloc] initWithData: data encoding: NSASCIIStringEncoding];
 	}
 	
 	if (response == nil) {
@@ -141,7 +131,7 @@
 	NSString* tokenSecret = [parameters valueForKey: @"oauth_token_secret"];
 	
 	if (tokenValue != nil && tokenSecret != nil) {
-		TwitterToken* token = [[[TwitterToken alloc] initWithToken: tokenValue secret: tokenSecret] autorelease];
+		TwitterToken* token = [[TwitterToken alloc] initWithToken: tokenValue secret: tokenSecret];
 		[_delegate twitterAuthenticator: self didSucceedWithToken: token];
 	} else {
 		// TODO: Real error handling
@@ -150,7 +140,6 @@
 
 	// Release all our resources
 
-	[_twitterRequest release];
 	_twitterRequest = nil;
 }
 

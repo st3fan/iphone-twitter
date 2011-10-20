@@ -21,8 +21,8 @@
 
 @interface TwitterConsumer : NSObject {
   @private
-	NSString* _key;
-	NSString* _secret;
+	NSString* __unsafe_unretained _key;
+	NSString* __unsafe_unretained _secret;
 }
 
 @property (nonatomic,readonly) NSString* key;

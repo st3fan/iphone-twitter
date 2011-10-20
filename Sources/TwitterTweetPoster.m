@@ -21,11 +21,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[_request release];
-	[super dealloc];
-}
 
 #pragma mark -
 
@@ -50,7 +45,6 @@
 {
 	if (_request != nil) {
 		[_request cancel];
-		[_request release];
 		_request = nil;
 	}
 }

@@ -44,16 +44,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-    [_twitterConsumer release];
-    [_parameters release];
-    [_token release];
-    [_method release];
-    [_url release];
-    [_realm release];
-	[super dealloc];
-}
 
 #pragma mark -
 
@@ -68,18 +58,18 @@
 
 	CFUUIDRef uuid = CFUUIDCreate(nil);
 	if (uuid != NULL) {
-		nonce = (NSString*) CFUUIDCreateString(nil, uuid);
+		nonce = (__bridge_transfer NSString*) CFUUIDCreateString(nil, uuid);
 		CFRelease(uuid);
 	}
     
-    return [nonce autorelease];
+    return nonce;
 }
 
 - (NSString*) _formEncodeString: (NSString*) string
 {
-	NSString* encoded = (NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+	NSString* encoded = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
 		(__bridge CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
-	return [encoded autorelease];
+	return encoded;
 }
 
 #pragma mark -
@@ -220,7 +210,7 @@
         [request setValue: [NSString stringWithFormat: @"%d", [requestData length]] forHTTPHeaderField: @"Content-Length"];
         [request setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField: @"Content-Type"];
 		
-		_connection = [[NSURLConnection connectionWithRequest: request delegate: self] retain];
+		_connection = [NSURLConnection connectionWithRequest: request delegate: self];
 	}
 }
 
@@ -228,7 +218,6 @@
 {
 	if (_connection != nil) {
 		[_connection cancel];
-		[_connection release];
 		_connection = nil;
 	}
 }
@@ -249,10 +238,8 @@
 {
 	[_delegate twitterRequest: self didFailWithError: error];
 
-	[_connection release];
 	_connection = nil;
 	
-	[_data release];
 	_data = nil;
 }
 
@@ -261,7 +248,7 @@
 	if (_statusCode != 200) {
 #ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Request failed with status code %d", _statusCode);
-		NSString* response = [[[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding] autorelease];
+		NSString* response = [[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding];
 		NSLog(@"Response = %@", response);
 #endif
 		// TODO: Add error message to userInfo?
@@ -270,10 +257,8 @@
 		[_delegate twitterRequest: self didFinishLoadingData: _data];
 	}
 	
-	[_connection release];
 	_connection = nil;
 	
-	[_data release];
 	_data = nil;
 }
 

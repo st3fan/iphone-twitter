@@ -36,20 +36,20 @@
 	NSURL* _url;
 	NSURL* _realm;
 	NSString* _method;
-	id<TwitterRequestDelegate> _delegate;
+	id<TwitterRequestDelegate> __unsafe_unretained _delegate;
   @private
 	NSURLConnection* _connection;
 	NSMutableData* _data;
 	NSInteger _statusCode;
 }
 
-@property (nonatomic,retain) TwitterConsumer* twitterConsumer;
-@property (nonatomic,retain) NSDictionary* parameters;
-@property (nonatomic,retain) TwitterToken* token;
-@property (nonatomic,retain) NSString* method;
-@property (nonatomic,retain) NSURL* url;
-@property (nonatomic,retain) NSURL* realm;
-@property (nonatomic,assign) id<TwitterRequestDelegate> delegate;
+@property (nonatomic,strong) TwitterConsumer* twitterConsumer;
+@property (nonatomic,strong) NSDictionary* parameters;
+@property (nonatomic,strong) TwitterToken* token;
+@property (nonatomic,strong) NSString* method;
+@property (nonatomic,strong) NSURL* url;
+@property (nonatomic,strong) NSURL* realm;
+@property (nonatomic,unsafe_unretained) id<TwitterRequestDelegate> delegate;
 
 - (void) execute;
 - (void) cancel;

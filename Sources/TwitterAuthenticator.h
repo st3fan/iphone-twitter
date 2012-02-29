@@ -36,17 +36,17 @@
 	TwitterConsumer* _consumer;
 	NSString* _username;
 	NSString* _password;
-	id<TwitterAuthenticatorDelegate> _delegate;
+	id<TwitterAuthenticatorDelegate> __unsafe_unretained _delegate;
   @private
     TwitterRequest* _twitterRequest;
 }
 
-@property (nonatomic,retain) TwitterConsumer* consumer;
+@property (nonatomic,strong) TwitterConsumer* consumer;
 
-@property (nonatomic,retain) NSString* username;
-@property (nonatomic,retain) NSString* password;
+@property (nonatomic,strong) NSString* username;
+@property (nonatomic,strong) NSString* password;
 
-@property (nonatomic,assign) id<TwitterAuthenticatorDelegate> delegate;
+@property (nonatomic,unsafe_unretained) id<TwitterAuthenticatorDelegate> delegate;
 
 - (void) authenticate;
 - (void) cancel;

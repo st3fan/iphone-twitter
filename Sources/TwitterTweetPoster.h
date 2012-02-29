@@ -17,16 +17,16 @@
   @private
 	TwitterConsumer* _consumer;
 	TwitterToken* _token;
-	id<TwitterTweetPosterDelegate> _delegate;
+	id<TwitterTweetPosterDelegate> __unsafe_unretained _delegate;
 	NSString* _message;
   @private
 	TwitterRequest* _request;
 }
 
-@property (nonatomic,retain) TwitterConsumer* consumer;
-@property (nonatomic,retain) TwitterToken* token;
-@property (nonatomic,retain) id<TwitterTweetPosterDelegate> delegate;
-@property (nonatomic,retain) NSString* message;
+@property (nonatomic,strong) TwitterConsumer* consumer;
+@property (nonatomic,strong) TwitterToken* token;
+@property (nonatomic,unsafe_unretained) id<TwitterTweetPosterDelegate> delegate;
+@property (nonatomic,strong) NSString* message;
 
 - (void) execute;
 - (void) cancel;

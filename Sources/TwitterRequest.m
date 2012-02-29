@@ -44,10 +44,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[super dealloc];
-}
 
 #pragma mark -
 
@@ -62,18 +58,18 @@
 
 	CFUUIDRef uuid = CFUUIDCreate(nil);
 	if (uuid != NULL) {
-		nonce = (NSString*) CFUUIDCreateString(nil, uuid);
+		nonce = (__bridge_transfer NSString*) CFUUIDCreateString(nil, uuid);
 		CFRelease(uuid);
 	}
     
-    return [nonce autorelease];
+    return nonce;
 }
 
 - (NSString*) _formEncodeString: (NSString*) string
 {
-	NSString* encoded = (NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-		(CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
-	return [encoded autorelease];
+	NSString* encoded = (__bridge_transfer NSString*) CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+		(__bridge CFStringRef) string, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+	return encoded;
 }
 
 #pragma mark -
@@ -115,16 +111,19 @@
 			[normalizedRequestParameters appendString: @"="];
 			[normalizedRequestParameters appendString: [self _formEncodeString: [parameters objectForKey: key]]];
 		}
-		
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX normalizedRequestParameters = %@", normalizedRequestParameters);
-		
+#endif
+
 		// Create the signature base string
 		
 		NSString* signatureBaseString = [NSString stringWithFormat: @"%@&%@&%@", _method,
 			[self _formEncodeString: [NSString stringWithFormat: @"%@://%@%@", [_url scheme], [_url host], [_url path]]],
 				[self _formEncodeString: normalizedRequestParameters]];
 
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX signatureBaseString = %@", signatureBaseString);
+#endif
 
 		// Create the secret
 		
@@ -136,8 +135,10 @@
 			secret = [NSString stringWithFormat:@"%@&", [self _formEncodeString: _twitterConsumer.secret]];
 		}
 		
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX Secret = %@", secret);
-		
+#endif
+
 		// Set the signature parameter
 		
 		NSString* signatureString = [TwitterUtils encodeData:
@@ -157,9 +158,11 @@
 			[normalizedRequestParameters appendString: @"="];
 			[normalizedRequestParameters appendString: [self _formEncodeString: [_parameters objectForKey: key]]];
 		}
-		
+
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"XXX POST Data = %@", normalizedRequestParameters);
-		
+#endif
+
 		NSData* requestData = [normalizedRequestParameters dataUsingEncoding: NSUTF8StringEncoding];
 		
 		// Setup the Authorization header
@@ -191,9 +194,11 @@
 			[authorization appendString: [self _formEncodeString: [authorizationParameters objectForKey: key]]];
 			[authorization appendString: @"\""];
 		}
-		
+
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Authorization: %@", authorization);
-		
+#endif
+
 		// Setup the request and connection
 
 		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL: _url
@@ -205,7 +210,7 @@
         [request setValue: [NSString stringWithFormat: @"%d", [requestData length]] forHTTPHeaderField: @"Content-Length"];
         [request setValue: @"application/x-www-form-urlencoded" forHTTPHeaderField: @"Content-Type"];
 		
-		_connection = [[NSURLConnection connectionWithRequest: request delegate: self] retain];
+		_connection = [NSURLConnection connectionWithRequest: request delegate: self];
 	}
 }
 
@@ -213,7 +218,6 @@
 {
 	if (_connection != nil) {
 		[_connection cancel];
-		[_connection release];
 		_connection = nil;
 	}
 }
@@ -234,29 +238,27 @@
 {
 	[_delegate twitterRequest: self didFailWithError: error];
 
-	[_connection release];
 	_connection = nil;
 	
-	[_data release];
 	_data = nil;
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection*) connection
 {
 	if (_statusCode != 200) {
+#ifndef NS_BLOCK_ASSERTIONS
 		NSLog(@"Request failed with status code %d", _statusCode);
-		NSString* response = [[[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding] autorelease];
+		NSString* response = [[NSString alloc] initWithData: _data encoding: NSUTF8StringEncoding];
 		NSLog(@"Response = %@", response);
-		// TODO: Real error handling
-		[_delegate twitterRequest: self didFailWithError: nil];
+#endif
+		// TODO: Add error message to userInfo?
+		[_delegate twitterRequest: self didFailWithError: [NSError errorWithDomain:@"TwitterRequestError" code:_statusCode userInfo:nil]];
 	} else {
 		[_delegate twitterRequest: self didFinishLoadingData: _data];
 	}
 	
-	[_connection release];
 	_connection = nil;
 	
-	[_data release];
 	_data = nil;
 }
 

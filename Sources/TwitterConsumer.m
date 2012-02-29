@@ -28,17 +28,11 @@
 - (id) initWithKey: (NSString*) key secret: (NSString*) secret
 {
 	if ((self = [super init]) != nil) {
-		_key = [key retain];
-		_secret = [secret retain];
+		_key = key;
+		_secret = secret;
 	}
 	return self;
 }
 
-- (void) dealloc
-{
-	[_key release];
-	[_secret release];
-	[super dealloc];
-}
 
 @end

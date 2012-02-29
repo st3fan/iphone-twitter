@@ -128,17 +128,21 @@
 	if (textField == _usernameTextField) {
 		[_passwordTextField becomeFirstResponder];
 	}
-	
+
+#ifndef NS_BLOCK_ASSERTIONS
 	if (textField == _passwordTextField) {
 		NSLog(@"Logging in");
 	}
+#endif
 	
 	return YES;
 }
 
 - (void) updateLoginButton
 {
+#ifndef NS_BLOCK_ASSERTIONS
 	NSLog(@"Yay");
+#endif
 	self.navigationItem.rightBarButtonItem.enabled = ([_usernameTextField.text length] != 0 && [_passwordTextField.text length] != 0);
 }
 
@@ -146,7 +150,9 @@
 
 - (void) twitterAuthenticator: (TwitterAuthenticator*) twitterAuthenticator didFailWithError: (NSError*) error;
 {
+#ifndef NS_BLOCK_ASSERTIONS
 	NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didFailWithError: %@", twitterAuthenticator, error);
+#endif
 
 	self.navigationItem.rightBarButtonItem.enabled = YES;
 	[self _showLoginForm];
@@ -157,7 +163,9 @@
 
 - (void) twitterAuthenticator: (TwitterAuthenticator*) twitterAuthenticator didSucceedWithToken: (TwitterToken*) token
 {
+#ifndef NS_BLOCK_ASSERTIONS
 	NSLog(@"TwitterAuthenticatorViewController#twitterAuthenticator: %@ didSucceedWithToken: %@", twitterAuthenticator, token);
+#endif
 
 	self.navigationItem.rightBarButtonItem.enabled = YES;
 	[self _showLoginForm];

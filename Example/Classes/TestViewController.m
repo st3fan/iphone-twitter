@@ -106,7 +106,9 @@
 
 - (void) twitterLoginViewController: (TwitterLoginViewController*) twitterLoginViewController didFailWithError: (NSError*) error
 {
+#ifndef NS_BLOCK_ASSERTIONS
 	NSLog(@"twitterLoginViewController: %@ didFailWithError: %@", self, error);
+#endif
 }
 
 #pragma mark -

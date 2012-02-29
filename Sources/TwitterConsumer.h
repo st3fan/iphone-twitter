@@ -19,11 +19,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TwitterConsumer : NSObject {
-  @private
-	NSString* __unsafe_unretained _key;
-	NSString* __unsafe_unretained _secret;
-}
+@interface TwitterConsumer : NSObject
 
 @property (nonatomic,readonly) NSString* key;
 @property (nonatomic,readonly) NSString* secret;

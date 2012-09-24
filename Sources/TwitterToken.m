@@ -56,11 +56,4 @@
     [coder encodeObject: _secret forKey: @"secret"];
 }
 
-#pragma mark -
-
-- (NSString*) description
-{
-	return [NSString stringWithFormat: @"<TwitterToken@0x%x token=%@ secret=%@>", self, _token, _secret];
-}
-
 @end

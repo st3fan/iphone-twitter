@@ -19,11 +19,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TwitterConsumer : NSObject {
-  @private
-	NSString* _key;
-	NSString* _secret;
-}
+@interface TwitterConsumer : NSObject
 
 @property (nonatomic,readonly) NSString* key;
 @property (nonatomic,readonly) NSString* secret;

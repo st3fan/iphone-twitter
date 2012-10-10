@@ -21,12 +21,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[_request release];
-	[_delegate release];
-	[super dealloc];
-}
 
 #pragma mark -
 
@@ -36,7 +30,7 @@
 	{
 		_request = [TwitterRequest new];
 		if (_request != nil) {
-			_request.url = [NSURL URLWithString: @"http://api.twitter.com/1/statuses/update.xml"];
+			_request.url = [NSURL URLWithString: @"https://api.twitter.com/1/statuses/update.xml"];
 			_request.twitterConsumer = _consumer;
 			_request.token = _token;
 			_request.method = @"POST";
@@ -51,7 +45,6 @@
 {
 	if (_request != nil) {
 		[_request cancel];
-		[_request release];
 		_request = nil;
 	}
 }
@@ -69,3 +62,4 @@
 }
 
 @end
+

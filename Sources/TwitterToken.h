@@ -25,8 +25,8 @@
 	NSString* _secret;
 }
 
-@property (nonatomic,retain) NSString* token;
-@property (nonatomic,retain) NSString* secret;
+@property (nonatomic,strong) NSString* token;
+@property (nonatomic,strong) NSString* secret;
 
 - (id) initWithToken: (NSString*) token secret: (NSString*) secret;
 

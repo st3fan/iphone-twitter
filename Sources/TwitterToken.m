@@ -32,26 +32,20 @@
 - (id) initWithToken: (NSString*) token secret: (NSString*) secret
 {
 	if ((self = [super init]) != nil) {
-		_token = [token retain];
-		_secret = [secret retain];
+		_token = token;
+		_secret = secret;
 	}
 	return self;
 }
 
-- (void) dealloc
-{
-	[_token release];
-	[_secret release];
-	[super dealloc];
-}
 
 #pragma mark -
 
 - (id) initWithCoder: (NSCoder*) coder
 {
 	if ((self = [super init]) != nil) {
-		_token = [[coder decodeObjectForKey: @"token"] retain];
-		_secret = [[coder decodeObjectForKey: @"secret"] retain];
+		_token = [coder decodeObjectForKey: @"token"];
+		_secret = [coder decodeObjectForKey: @"secret"];
 	}
 	return self;
 }
@@ -60,13 +54,6 @@
 {
     [coder encodeObject: _token forKey: @"token"];
     [coder encodeObject: _secret forKey: @"secret"];
-}
-
-#pragma mark -
-
-- (NSString*) description
-{
-	return [NSString stringWithFormat: @"<TwitterToken@0x%x token=%@ secret=%@>", self, _token, _secret];
 }
 
 @end

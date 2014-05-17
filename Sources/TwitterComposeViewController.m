@@ -74,7 +74,7 @@
 
 #pragma mark -
 
-- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
+/*- (void) shortener: (URLShortener*) shortener didSucceedWithShortenedURL: (NSURL*) shortenedURL
 {
 	// Replace the first URL in the message. This is terrible code that needs to be replaced with a proper regular expression.
 
@@ -150,11 +150,16 @@
 	}
 	
 	return messageContainsLinks;
-}
+}*/
 
 #endif
 
 #pragma mark -
+
+- (void) updateSendButton
+{
+	self.navigationItem.rightBarButtonItem.enabled = ([_textView.text length] != 0 && [_textView.text length] <= 140);
+}
 
 - (IBAction) close
 {
@@ -196,6 +201,7 @@
 
 - (void) updateCharactersLeftLabel
 {
+	[self updateSendButton];
 	NSInteger count = 140 - [_textView.text length];
 
 	if (count < 0) {

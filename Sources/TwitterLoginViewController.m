@@ -22,6 +22,12 @@
 #import "TwitterAuthenticator.h"
 #import "TwitterLoginViewController.h"
 
+@interface TwitterLoginViewController (hidden)
+
+- (void)updateLoginButton;
+
+@end
+
 @implementation TwitterLoginViewController
 
 @synthesize consumer = _consumer, delegate = _delegate;
@@ -81,9 +87,11 @@
 	
 	[_usernameTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
 	_usernameTextField.placeholder = NSLocalizedStringFromTable(@"Required", @"Twitter", @"");
+	_usernameTextField.delegate = self;
 	
 	[_passwordTextField addTarget: self action: @selector(updateLoginButton) forControlEvents: UIControlEventEditingChanged];
 	_passwordTextField.placeholder = NSLocalizedStringFromTable(@"Required", @"Twitter", @"");
+	_passwordTextField.delegate = self;
 	
 	[_createAccountButton setTitle: NSLocalizedStringFromTable(@"CreateATwitterAccount", @"Twitter", @"") forState: UIControlStateNormal];
 	_usernameLabel.text = NSLocalizedStringFromTable(@"Username", @"Twitter", @"");
@@ -119,6 +127,7 @@
 
 - (IBAction) createAccount
 {
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mobile.twitter.com/signup"]];
 }
 
 #pragma mark -

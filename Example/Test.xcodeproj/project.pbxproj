@@ -15,6 +15,10 @@
 		2899E5220DE3E06400AC0155 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* TestViewController.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* TestViewController.m */; };
+		B6AA7D2412C9D9B10086A829 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6AA7D2312C9D9B10086A829 /* MainWindow-iPad.xib */; };
+		B6AA7D2712C9D9DE0086A829 /* TwitterLoginViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6AA7D2512C9D9DE0086A829 /* TwitterLoginViewController-iPad.xib */; };
+		B6AA7D2812C9D9DE0086A829 /* TwitterComposeViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6AA7D2612C9D9DE0086A829 /* TwitterComposeViewController-iPad.xib */; };
+		B6AA7D3E12C9DB770086A829 /* TestViewController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6AA7D3D12C9DB770086A829 /* TestViewController-iPad.xib */; };
 		F83FEDFE11D7FC7200C6411C /* Twitter.strings in Resources */ = {isa = PBXBuildFile; fileRef = F83FEDFC11D7FC7200C6411C /* Twitter.strings */; };
 		F8733C491193C50700680E83 /* TwitterClouds.png in Resources */ = {isa = PBXBuildFile; fileRef = F8733C481193C50700680E83 /* TwitterClouds.png */; };
 		F8BC11F7119270670065FCB5 /* TwitterComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8BC11E6119270670065FCB5 /* TwitterComposeViewController.m */; };
@@ -43,6 +47,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Test_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Test-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Test-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		B6AA7D2312C9D9B10086A829 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		B6AA7D2512C9D9DE0086A829 /* TwitterLoginViewController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "TwitterLoginViewController-iPad.xib"; path = "../Sources/TwitterLoginViewController-iPad.xib"; sourceTree = SOURCE_ROOT; };
+		B6AA7D2612C9D9DE0086A829 /* TwitterComposeViewController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "TwitterComposeViewController-iPad.xib"; path = "../Sources/TwitterComposeViewController-iPad.xib"; sourceTree = SOURCE_ROOT; };
+		B6AA7D3D12C9DB770086A829 /* TestViewController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "TestViewController-iPad.xib"; path = "../TestViewController-iPad.xib"; sourceTree = "<group>"; };
 		F83FEDFD11D7FC7200C6411C /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = ../Sources/English.lproj/Twitter.strings; sourceTree = SOURCE_ROOT; };
 		F83FEDFF11D7FC7C00C6411C /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = ../Sources/French.lproj/Twitter.strings; sourceTree = SOURCE_ROOT; };
 		F8733C481193C50700680E83 /* TwitterClouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TwitterClouds.png; path = ../Sources/TwitterClouds.png; sourceTree = SOURCE_ROOT; };
@@ -88,6 +96,7 @@
 				28D7ACF60DDB3853001CB0EB /* TestViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* TestViewController.m */,
 				2899E5210DE3E06400AC0155 /* TestViewController.xib */,
+				B6AA7D3D12C9DB770086A829 /* TestViewController-iPad.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -127,6 +136,7 @@
 			children = (
 				F83FEDFC11D7FC7200C6411C /* Twitter.strings */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				B6AA7D2312C9D9B10086A829 /* MainWindow-iPad.xib */,
 				8D1107310486CEB800E47090 /* Test-Info.plist */,
 			);
 			name = Resources;
@@ -147,6 +157,7 @@
 			children = (
 				F8BC11E5119270670065FCB5 /* TwitterComposeViewController.h */,
 				F8BC11E6119270670065FCB5 /* TwitterComposeViewController.m */,
+				B6AA7D2612C9D9DE0086A829 /* TwitterComposeViewController-iPad.xib */,
 				F8BC11E7119270670065FCB5 /* TwitterComposeViewController.xib */,
 				F8BC11E8119270670065FCB5 /* TwitterAuthenticator.h */,
 				F8BC11E9119270670065FCB5 /* TwitterAuthenticator.m */,
@@ -154,6 +165,7 @@
 				F8BC11EB119270670065FCB5 /* TwitterConsumer.m */,
 				F8BC11EC119270670065FCB5 /* TwitterLoginViewController.h */,
 				F8BC11ED119270670065FCB5 /* TwitterLoginViewController.m */,
+				B6AA7D2512C9D9DE0086A829 /* TwitterLoginViewController-iPad.xib */,
 				F8BC11EE119270670065FCB5 /* TwitterLoginViewController.xib */,
 				F8BC11EF119270670065FCB5 /* TwitterRequest.h */,
 				F8BC11F0119270670065FCB5 /* TwitterRequest.m */,
@@ -223,6 +235,10 @@
 				F8BC11FC119270670065FCB5 /* TwitterLoginViewController.xib in Resources */,
 				F8733C491193C50700680E83 /* TwitterClouds.png in Resources */,
 				F83FEDFE11D7FC7200C6411C /* Twitter.strings in Resources */,
+				B6AA7D2412C9D9B10086A829 /* MainWindow-iPad.xib in Resources */,
+				B6AA7D2712C9D9DE0086A829 /* TwitterLoginViewController-iPad.xib in Resources */,
+				B6AA7D2812C9D9DE0086A829 /* TwitterComposeViewController-iPad.xib in Resources */,
+				B6AA7D3E12C9DB770086A829 /* TestViewController-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,8 +315,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -312,9 +330,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.1.3;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
